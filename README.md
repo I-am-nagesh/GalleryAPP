@@ -1,5 +1,5 @@
+![Screenshot from 2024-09-27 09-07-01](https://github.com/user-attachments/assets/15f67e7a-5319-4d49-a8e1-6b33d1607e9e)
 # Image Gallery Project
-
 This project is an image gallery built with **Next.js**. The gallery contains different sections such as **Animals**, **Sports**, **Travel**, etc., and uses **Next.js page routing** for navigation between sections. The project is styled with **Tailwind CSS**, and components are enhanced using **Lucid-React**.
 
 ## Features
