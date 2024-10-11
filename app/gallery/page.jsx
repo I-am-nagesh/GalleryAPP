@@ -1,13 +1,13 @@
-"use client"
+"use client";
 import React, { useState } from "react";
-import { Images } from "./data"; 
-import Link from 'next/link';
-import ImageCard from '../../components/ImageCard';
+import { Images } from "./data";
+import Link from "next/link";
+import ImageCard from "../../components/ImageCard";
 
 const Gallery = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
-  const filteredImages = Images.filter(image =>
+  const filteredImages = Images.filter((image) =>
     image.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
@@ -22,16 +22,18 @@ const Gallery = () => {
           placeholder="Search for images..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="p-2 border border-gray-300 rounded"
+          className="p-2 border border-gray-300 rounded shadow-lg"
         />
       </div>
       <div className="lg:grid grid-cols-3 gap-6">
         {filteredImages.length > 0 ? (
           filteredImages.map((image) => (
             <Link key={image.id} href={`/gallery/${image.id}`} passHref>
-      
-                <ImageCard src={image.src} title={image.title} alt={image.title} />
-          
+              <ImageCard
+                src={image.src}
+                title={image.title}
+                alt={image.title}
+              />
             </Link>
           ))
         ) : (
