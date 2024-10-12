@@ -1,60 +1,83 @@
-import React from "react";
-import Link from "next/link";
+"use client";
+import React, { useState } from "react";
 
-export default function contact() {
+const Login = () => {
+  const [state, setState] = useState("Sign Up");
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+
+  const onSubmitHandler = async (event) => {
+    event.preventDefault();
+  };
   return (
-    <>
-      <div class=" px-8 justify-center mt-35">
-        <div class="">
-          <h2 class="text-4xl text-blue-900  font-semibold">
-            Get In Touch.....
-          </h2>
+    <form className="min-h-[80vh] flex items-center">
+      <div className="flex flex-col gap-3 m-auto items-start p-8 min-w-[340px] sm:min-w-96 border rounded-xl text-zinc-600 text-sm shadow-lg">
+        <p className="text-2xl font-semibold">
+          {state === "Sign Up" ? "Create Account" : "Login"}
+        </p>
+        <p>Please {state == "Sign Up" ? "sign-up" : "log in"} .....</p>
+        {state === "Sign Up" && (
+          <div className="w-full">
+            <p>Full Name</p>
+            <input
+              className="border border-zinc-300 rounded-lg shadow-lg w-full p-2 mt-1"
+              type="text"
+              onChange={(e) => setName(e.target.name)}
+              value={name}
+              required
+            />
+          </div>
+        )}
 
-          <form action="#">
-            <div class="grid grid-cols-2 ">
-              <div class="mt-3">
-                <label for="name" class="block text-base mb-2">
-                  First Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  class="border-transparent bg-slate-100 rounded-lg w-60 h-10 text-base px-1 py-1 focus:border-gray-600"
-                  placeholder="Nagesh"
-                />
-              </div>
-              <div class="mt-3">
-                <label for="name" class="block text-base mb-2">
-                  Last Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  class="border-transparent bg-slate-100 rounded-lg w-60 h-10 text-base px-1 py-1 focus:border-gray-600"
-                  placeholder="Pandey"
-                />
-              </div>
-            </div>
-            <div class="mt-3">
-              <label for="email" class="block text-base mb-2">
-                Email
-              </label>
-              <input
-                type="email"
-                id="email"
-                class="border-transparent bg-slate-100 rounded-lg w-10/12 h-10 text-base px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
-                placeholder="nageshpandey@gmail.com"
-              />
-            </div>
-
-            <div class="mt-10 relative left-14">
-              <div className="text-center bg-yellow-500 text-white py-1 w-96 rounded-md hover:text-indigo-700 font-semibold">
-                <Link href="/">Let's talk....</Link>
-              </div>
-            </div>
-          </form>
+        <div className="w-full">
+          <p>Email</p>
+          <input
+            className="border border-zinc-300 rounded-lg shadow-lg w-full p-2 mt-1"
+            type="email"
+            onChange={(e) => setName(e.target.name)}
+            value={email}
+            required
+          />
         </div>
+        <div className="w-full">
+          <p>Password</p>
+          <input
+            className="border border-zinc-300 rounded-lg shadow-lg w-full p-2 mt-1"
+            type="password"
+            onChange={(e) => setName(e.target.name)}
+            value={password}
+            required
+          />
+        </div>
+        <button className="bg-blue-600 text-white w-full py-2 rounded-md text-base">
+          {state === "Sign Up" ? "Create Account" : "Login"}
+        </button>
+        {state === "Sign Up" ? (
+          <p>
+            Already have an account?{" "}
+            <span
+              onClick={() => setState("Login")}
+              className="text-blue-600 underline cursor-pointer"
+            >
+              Login here
+            </span>
+          </p>
+        ) : (
+          <p>
+            Create an new account?{" "}
+            <span
+              onClick={() => setState("Sign Up")}
+              className="text-blue-600 underline cursor-pointer"
+            >
+              click here
+            </span>
+          </p>
+        )}
       </div>
-    </>
+    </form>
   );
-}
+};
+
+export default Login;
