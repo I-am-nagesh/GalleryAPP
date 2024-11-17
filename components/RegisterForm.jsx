@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react"; 
 
 export default function RegisterForm({ onSuccess }) {
   const [name, setName] = useState("");
@@ -62,12 +63,15 @@ export default function RegisterForm({ onSuccess }) {
     }
   };
 
+  const handleGoogleSignIn = () => {
+  
+    signIn("google", { callbackUrl: "/dashboard" }); 
+  };
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="shadow-lg p-10 rounded-lg border-t-4 border-blue-600 w-96 bg-white">
-        <h1 className="text-3xl font-bold my-4 text-center text-blue-800">
-          Register
-        </h1>
+        <h1 className="text-3xl font-bold my-4 text-center text-blue-800">Register</h1>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-6">
           <input
@@ -93,6 +97,14 @@ export default function RegisterForm({ onSuccess }) {
           />
           <button className="bg-blue-600 text-white font-bold cursor-pointer px-8 py-3 rounded-lg transition duration-300 hover:bg-blue-700">
             Register
+          </button>
+
+          <button
+            type="button"
+            onClick={handleGoogleSignIn}
+            className="flex items-center justify-center bg-red-500 text-white font-bold cursor-pointer px-8 py-3 rounded-lg transition duration-300 hover:bg-red-600 mt-4"
+          >
+            Continue with Google
           </button>
 
           {error && (

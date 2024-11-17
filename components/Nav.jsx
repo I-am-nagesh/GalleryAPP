@@ -32,6 +32,15 @@ export default function Nav() {
           <li className="text-xs md-text-base text-slate-700 hover:underline">
             <Link href="/register">Contact </Link>
           </li>
+
+          <li className="text-xs md-text-base text-slate-700 hover:underline">
+            <Link href="/upload">Upload Image </Link>
+          </li>
+
+          <li className="text-xs md-text-base text-slate-700 hover:underline">
+            <Link href="/uploadedImages">uploaded Images </Link>
+          </li>
+
         </ul>
         <div className="lg:hidden md:flex flex-col justify-end">
           <button onClick={toggleNavbar}>
@@ -50,6 +59,12 @@ export default function Nav() {
             </li>
             <li className="py-4 text-white">
               <Link href="/register">Contact </Link>
+            </li>
+            <li className="py-4 text-white">
+              <Link href="/upload">upload Image </Link>
+            </li>
+            <li className="py-4 text-white">
+              <Link href="/uploadedImages">Uploaded Images </Link>
             </li>
           </ul>
         </div>

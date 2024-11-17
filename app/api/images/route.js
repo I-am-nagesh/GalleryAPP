@@ -6,7 +6,8 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 export async function GET(req) {
   try {
     const session = await getServerSession(authOptions);
-    if (!session) {
+
+    if (!session || !session.user) {
       return new Response(JSON.stringify({ message: "Unauthorized" }), {
         status: 401,
       });
@@ -14,12 +15,16 @@ export async function GET(req) {
 
     await connectMongoDB();
 
-    const images = await Image.find({ user: session.user.id }).populate(
-      "user",
-      "name"
+    const images = await Image.find({ user: session.user.id }).select(
+      "url createdAt"
     );
 
-    return new Response(JSON.stringify({ images }), { status: 200 });
+    const imageData = images.map((image) => ({
+      url: image.url,
+      createdAt: image.createdAt,
+    }));
+
+    return new Response(JSON.stringify({ images: imageData }), { status: 200 });
   } catch (error) {
     console.error("Error fetching images:", error);
     return new Response(JSON.stringify({ message: "Internal server error." }), {

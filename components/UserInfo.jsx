@@ -6,7 +6,7 @@ import { signOut, useSession } from "next-auth/react";
 export default function UserInfo() {
   const { data: session } = useSession();
   const [images, setImages] = useState([]);
-  const [imageUrl, setImageUrl] = useState("");
+  const [imageFile, setImageFile] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
 
   useEffect(() => {
@@ -15,23 +15,27 @@ export default function UserInfo() {
     }
   }, [session]);
 
+  const handleFileChange = (e) => {
+    setImageFile(e.target.files[0]);
+  };
+
   const handleUpload = async (event) => {
     event.preventDefault();
-    if (!imageUrl) return;
+    if (!imageFile) return;
 
     setIsUploading(true);
+    const formData = new FormData();
+    formData.append("file", imageFile);
+
     try {
       const res = await fetch("/api/uploadImage", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ imageUrl }),
+        body: formData,
       });
 
       if (res.ok) {
         fetchImages();
-        setImageUrl("");
+        setImageFile(null);
       } else {
         console.log("Image upload failed.");
       }
@@ -75,13 +79,11 @@ export default function UserInfo() {
 
         <form onSubmit={handleUpload} className="mt-4">
           <h3 className="text-2xl font-semibold text-center text-gray-800 mb-4">
-            Upload Image URL
+            Upload Image
           </h3>
           <input
-            type="url"
-            placeholder="Enter image URL"
-            value={imageUrl}
-            onChange={(e) => setImageUrl(e.target.value)}
+            type="file"
+            onChange={handleFileChange}
             className="border border-gray-300 rounded p-2 w-full mb-4"
             required
           />

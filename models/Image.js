@@ -10,6 +10,10 @@ const imageSchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
-});
+},
+  {
+    timestamps:true,
+  }
+);
 
 export default mongoose.models.Image || mongoose.model("Image", imageSchema);
